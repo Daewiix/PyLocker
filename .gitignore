@@ -12,3 +12,5 @@ __pycache__/
 .log
 
 node_modules/
+
+to-do.txt
