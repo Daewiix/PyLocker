@@ -32,9 +32,7 @@ class Handler:
             cursor = sqliteConnection.cursor()
 
             sqlite_insert_with_param = """INSERT INTO Logins(origin_url, action_url, username, password) VALUES (?, ?, ?, ?);"""
-
-            data_tuple = (origin_url, action_url, username, password)
-            cursor.execute(sqlite_insert_with_param, data_tuple)
+            cursor.execute(sqlite_insert_with_param, (origin_url, action_url, username, password))
             sqliteConnection.commit()
 
             cursor.close()

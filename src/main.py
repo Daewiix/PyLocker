@@ -1,9 +1,6 @@
-from db_handling_files.db_handler import Handler
+from Database_Handling.db_handler import Handler
+from TUI import start, start_loop_menu
 
 if __name__ == "__main__":
-    path = input(
-        "Enter the filename where the db exists or has to be created if it doesn't exist: "
-    )
-    handler = Handler(path)
-    handler.create_db_if_not_exists()
-    print("completed")
+    start()
+    start_loop_menu()
