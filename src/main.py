@@ -1,6 +1,10 @@
-from Database_Handling.db_handler import Handler
-from TUI import start, start_loop_menu
+from lib.db_handler import Handler
+from TUI import menu, logo
 
-if __name__ == "__main__":
-    start()
-    start_loop_menu()
+count = 0
+
+while True:
+    if count <= 0:
+        logo()
+    menu()
+    count += 1
